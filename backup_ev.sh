@@ -20,11 +20,31 @@ STATUSCRM=`cp -v /mnt/k2-d/CRM/$NAMECRM /raid/CRM/$NAMECRM`
 STATUSRet=`cp -v /mnt/k3-e/Retail/$NAMERet /raid/Ret20/$NAMERet`
 STATUSRetaks=`cp -v /mnt/k3-e/Retail_aks/$NAMERetaks /raid/Ret_aks/$NAMERetaks`
 STATUSBuhaks=`cp -v /mnt/k3-f/Buh_AKS/$NAMEBuhaks /raid/Buh_aks/$NAMEBuhaks`
-STATUS1cv77=`tar zcvf /raid/1cv77/$NAMEauto /mnt/1c77/TREID07/*`
+`tar zcvf /raid/1cv77/$NAMEauto /mnt/1c77/TREID07/*`
+STATUS1cv77=$?
 
-STATUSRAID=`ls /raid`
+STATUSRAID=`cat /proc/mdstat`
 
-RES="\n\n$STATUSUPP\n$STATUSCRM\n$STATUSRet\n$STATUSRetaks\n$STATUSBuhaks\n$STATUS1cv77"
+`bash /usr/tools/rm_old.sh "/raid/UPP"`
+`bash /usr/tools/rm_old.sh "/raid/CRM"`
+`bash /usr/tools/rm_old.sh "/raid/Ret20"`
+`bash /usr/tools/rm_old.sh "/raid/Ret_aks"`
+`bash /usr/tools/rm_old.sh "/raid/Buh_aks"`
+`bash /usr/tools/rm_old.sh "/raid/1c77"`
+
+
+df_res=`df -h | grep raid`
+
+RES="UPP=$STATUSUPP
+     CRM=$STATUSCRM
+     Retail=$STATUSRet
+     Retail_aks=$STATUSRetaks
+     Buh_AKS=$STATUSBuhaks
+     TREID07=$STATUS1cv77
+
+     storage: $df_res
+
+     raid: $STATUSRAID"
 
 echo $STATUSUPP
 
@@ -34,9 +54,3 @@ echo $STATUSUPP
 
 /usr/tools/2mail_m.py "Backup base evening" "$RES"
 
-`bash /usr/tools/rm_old.sh "/raid/UPP"`
-`bash /usr/tools/rm_old.sh "/raid/CRM"`
-`bash /usr/tools/rm_old.sh "/raid/Ret20"`
-`bash /usr/tools/rm_old.sh "/raid/Ret_aks"`
-`bash /usr/tools/rm_old.sh "/raid/Buh_aks"`
-`bash /usr/tools/rm_old.sh "/raid/1c77"`
