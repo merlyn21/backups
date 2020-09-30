@@ -11,6 +11,7 @@ NAMERet="Retail_$DATE.bak"
 NAMERetaks="Retail_aks_$DATE.bak"
 NAMEBuhaks="Buh_AKS_$DATE.bak"
 NAMEauto="Auto_$DATE.tgz"
+NAMEMerc="UPP_Merc_$DATE.bak"
 
 
 #echo $NAME
@@ -20,6 +21,7 @@ STATUSCRM=`cp -v /mnt/k2-d/CRM/$NAMECRM /raid/CRM/$NAMECRM`
 STATUSRet=`cp -v /mnt/k3-e/Retail/$NAMERet /raid/Ret20/$NAMERet`
 STATUSRetaks=`cp -v /mnt/k3-e/Retail_aks/$NAMERetaks /raid/Ret_aks/$NAMERetaks`
 STATUSBuhaks=`cp -v /mnt/k3-f/Buh_AKS/$NAMEBuhaks /raid/Buh_aks/$NAMEBuhaks`
+STATUSMerc=`cp -v /mnt/k4/UPP_Merc/$NAMEMerc /raid/UPP_Merc/$NAMEMerc`
 `tar zcvf /raid/1cv77/$NAMEauto /mnt/1c77/TREID07/*`
 STATUS1cv77=$?
 
@@ -30,7 +32,8 @@ STATUSRAID=`cat /proc/mdstat`
 `bash /usr/tools/rm_old.sh "/raid/Ret20"`
 `bash /usr/tools/rm_old.sh "/raid/Ret_aks"`
 `bash /usr/tools/rm_old.sh "/raid/Buh_aks"`
-`bash /usr/tools/rm_old.sh "/raid/1c77"`
+`bash /usr/tools/rm_old.sh "/raid/UPP_Merc"`
+`bash /usr/tools/rm_old.sh "/raid/1cv77"`
 
 
 df_res=`df -h | grep raid`
@@ -40,6 +43,7 @@ RES="UPP=$STATUSUPP
      Retail=$STATUSRet
      Retail_aks=$STATUSRetaks
      Buh_AKS=$STATUSBuhaks
+     UPP_Merc=$STATUSMerc
      TREID07=$STATUS1cv77
 
      storage: $df_res
