@@ -1,0 +1,11 @@
+name: TestDeploy
+on:
+  workflow_dispatch:
+  
+jobs:
+  test_start:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Print uname
+        run: uname -a
